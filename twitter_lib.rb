@@ -81,24 +81,28 @@ class TwitRuby
 			return access_tokens
 		end#end of begin
 	end#end of function oauth_init
+
+	##########################################################################
 	
 	def update(str, id="")
 		if (id.empty?) then
 			@access_token.post("/1.1/statuses/update.json",
-								"status"=>str)
+								:status =>str)
 		else
 			@access_token.post("/1.1/statuses/update.json",
-								"status"=>str,
-								"in_reply_status_id"=>id.to_s)
+								:status =>str,
+								:in_reply_status_id =>id.to_s)
 		end
 	end
 	
 	def favorite(id)
-		@access_token.post("/1.1/favorites/create.json", 'id' => id.to_s)
+		@access_token.post("/1.1/favorites/create.json",
+							:id => id.to_s)
 	end
  
 	def unfavorite(id)
-		@access_token.post("/1.1/favorites/destroy.json", 'id' => id.to_s)
+		@access_token.post("/1.1/favorites/destroy.json",
+							:id => id.to_s)
 	end
  
 	def retweet(id)
@@ -114,13 +118,102 @@ class TwitRuby
 	end
 	
 	def mentions_timeline(count="",since_id="",max_id="",trim_user="",contributor_details="",include_entities="")
-		return JSON.parse((@access_token.get("/1.1/statuses/mentions_timeline.json",
-							"count" => count,
-							"since_id" => since_id,
-							"max_id" => max_id,
-							"trim_user" => trim_user,
-							"contributor_details"=>contributor_details,
-							"include_entities"=>include_entities)
+		return JSON.parse(
+							(@access_token.get("/1.1/statuses/mentions_timeline.json",
+								:count => count,
+								:since_id => since_id,
+								:max_id => max_id,
+								:trim_user => trim_user,
+								:contributor_details=>contributor_details,
+								:include_entities =>include_entities)
 						).body)
 	end
+	
+	#GET statuses/home_timeline
+	def home_timeline(count,since_id="",max_id="",trim_user="",include_entities="",include_user_entities="")
+		return Json.parse(@access_token.get("/1.1/statuses/home_timeline.json",
+											:count =>count,
+											:since_id => since_id,
+											:max_id => max_id,
+											:trim_user => trim_user,
+											:include_entities => include_entities,
+											:include_user_entities => include_user_entities
+											).body)
+	end
+	
+	#GET statuses/user_timeline
+	def user_timeline 
+		return Json.parse(@access_token.get("/1.1/statuses/user_timeline.json",
+											:user_id => user_id,
+											:screen_name => screen_name,
+											:since_id => since_id,
+											:count => count,
+											:max_id => max_id,
+											:trim_user => trim_user,
+											:exclude_replies => exclude_replies,
+											:contributor_details => contributor_details,
+											:include_rts => include_rts
+											).body)
+	end
+	
+	#GET statuses/retweets_of_me
+	def get_rom(count,since_id="",max_id="",trim_user="",include_entities="",include_user_entities="")
+		return Json.parse(@access_token.get("/1.1/statuses/retweets_of_me.json",
+											:count =>count,
+											:since_id => since_id,
+											:max_id => max_id,
+											:trim_user => trim_user,
+											:include_entities => include_entities,
+											:include_user_entities => include_user_entities
+											).body)
+	end
+	
+	##########################################################################
+	
+	#POST direct_messages/new
+	def dm_send(user_id="",screen_name="",text)
+		if user_id.empty? then
+			return "Error. user_id => empty"
+		end
+		@access_token.get("/1.1/direct_messages/new.json",
+							:user_id => user_id,
+							:screen_name => screen_name,
+							:text => text)
+	end
+	
+	#GET direct_messages/sent
+	def get_sent_dm(since_id="",max_id="",count="",page="",include_entities="")
+		if since_id.empty? || max_id.empty? || count.empty? || page.empty? || include_entities.empty? then
+			return "Error. same parms is empty"
+		end
+		
+		return Json.parse(@access_token.get("/1.1/direct_messages/sent.json",
+											:since_id => since_id,
+											:max_id => max_id,
+											:count => count,
+											:page => page,
+											:include_entities => include_entities,
+											).body)
+	end
+	
+	#GET direct_messages
+	def dm_msgs(since_id="",max_id="",count="",include_entities="",skip_status="")
+		return Json.parse(@access_token.get("/1.1/direct_messages.json",
+											:since_id => since_id,
+											:max_id => max_id,
+											:count => count,
+											:include_entities => include_entities,
+											:skip_status => skip_status
+											).body)
+	end
+	
+	#POST direct_messages/destroy
+	def post_dm_destory(id,include_entities="")
+		@access_token.post("/1.1/direct_messages/destroy.json",
+							:id => id,
+							:include_entities => include_entities)
+	end
+	
+	##########################################################################
+	
 end#End of Class TwitRuby
