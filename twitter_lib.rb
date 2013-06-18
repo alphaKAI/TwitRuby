@@ -5,7 +5,7 @@
 # Copyright (C) alphaKAI @alpha_kai_NET 2013 http://alpha-kai-net.info #
 # GPLv3 LICENSE                                                        #
 #                                                                      #
-# Version:0.0.1_alpha                                                  #
+# Version:0.0.1_alpha FIX03                                                  #
 # This is one of the Twitter Library                                   #
 # inspired by https://gist.github.com/pnlybubbles/5476370              #
 # This is development version.                                         #
@@ -17,22 +17,23 @@ require "oauth"
 require "cgi"
 require "json"
 require "openssl"
+require "open-uri"
 require "date"
 
 class TwitRuby
 	def initalize_connection(consumer_keys)
 		ak_exist=true
 		#デフォ状態での引数にアクセストークン系があるかないか 初期になかった場合は処理中にfalseに変更
-		if consumer_keys.size!=4 then
+		if consumer_keys.size !=4 then
 			puts "error"
 			puts "wrong number of arguments"
 			puts "arguments array is require 4 element"
 			exit
 		end
-		consumer_key=consumer_keys[0]
-		consumer_secret=consumer_keys[1]
-		access_token=consumer_keys[2]
-		access_token_secret=consumer_keys[3]
+		consumer_key = consumer_keys[0]
+		consumer_secret = consumer_keys[1]
+		access_token = consumer_keys[2]
+		access_token_secret = consumer_keys[3]
 		
 		@consumer = OAuth::Consumer.new(
 		consumer_key,
@@ -40,30 +41,32 @@ class TwitRuby
 		:site => 'http://api.twitter.com/'
 		)
 		
-		if access_token==nil || access_token=="" || access_token_secret==nil || access_token_secret==""
+		if access_token == nil || access_token == "" || access_token_secret == nil || access_token_secret == ""
 			puts "アクセストークンが設定されていないため、アクセストークンを取得します"
-			oauth_array=oauth_init
-			access_token=oauth_array[0]
-			access_token_secret=oauth_array[1]
-			ak_exist=false
+			oauth_array = oauth_init
+			access_token = oauth_array[0]
+			access_token_secret = oauth_array[1]
+			ak_exist = false
 		end
+		
+		# puts access_token
+		# puts access_token_secret
+		
 		@access_token = OAuth::AccessToken.new(
 		@consumer,
 		access_token,
 		access_token_secret
 		)
-		puts access_token
-		puts access_token_secret
 	end#end of function
 	
 	def oauth_init
 		begin
 			request_token = @consumer.get_request_token
 
-			require 'Win32API'
+			# require 'Win32API'
 
-			shellexecute = Win32API.new('shell32.dll','ShellExecuteA',%w(p p p p p i),'i')
-			shellexecute.call(0, 'open', "#{request_token.authorize_url}", 0, 0, 1)
+			# shellexecute = Win32API.new('shell32.dll','ShellExecuteA',%w(p p p p p i),'i')
+			# shellexecute.call(0, 'open', "#{request_token.authorize_url}", 0, 0, 1)
 			
 			puts("Access here: #{request_token.authorize_url}\nand...")
 			print("Please input pin:=>")
@@ -76,8 +79,8 @@ class TwitRuby
 			)
 
 			access_tokens = []
-			access_tokens  << access_token.token
-			access_tokens  << access_token.secret
+			access_tokens  << access_token.token.to_s
+			access_tokens  << access_token.secret.to_s
 			
 			return access_tokens
 		end#end of begin
@@ -88,11 +91,11 @@ class TwitRuby
 	def update(str, id="")
 		if (id.empty?) then
 			@access_token.post("/1.1/statuses/update.json",
-			"status" =>str)
+			"status" => str)
 		else
 			@access_token.post("/1.1/statuses/update.json",
-			"status" =>str,
-			"in_reply_status_id" =>id.to_s)
+			"status" => str,
+			"in_reply_status_id" => id.to_s)
 		end
 	end
 	
@@ -225,5 +228,63 @@ class TwitRuby
 						"stringify_ids" => stringify_ids,
 						"count" => count
 						).body)
+	end
+	
+	#GET username_available?
+	#存在確認なので真偽値は逆となる trueなら使用可(IDとして新規作成時に)
+	def user_ava?(user_name)
+	
+		#for https
+		https = Net::HTTP.new("twitter.com",443)
+		https.use_ssl = true
+		#SSL証明書のパス 自分で用意して下さいﾏｼ
+		https.ca_file = "./twitter.com.pem"
+		https.verify_mode = OpenSSL::SSL::VERIFY_PEER
+		https.verify_depth = 5
+		
+		#get and parse
+		get_torf = JSON.parse(https.get("/users/username_available",
+										"user_name" => user_name).body)["valid"]
+										
+		if get_torf == false
+			return true#存在する
+		elsif get_torf == true
+			return false#存在しない
+		end
+	end
+	
+	#GET account/rate_limit_status
+	def get_rate_limit
+		return JSON.parse((@access_token.get("/1.1/application/rate_limit_status.json")).body)
+	end
+	
+	#GET friendships/show
+	#上手く動かない
+	def friendships?(source_id="",source_screen_name="",target_id="",target_screen_name="")
+		
+		#Convert and Build
+		if source_id.empty? ==true && source_screen_name.empty? == false
+			source_ = "source_screen_name"
+			source=source_screen_name
+		elsif source_id.empty? ==false && source_screen_name.empty? == true
+			source_ = "source_id"
+			source = source_id
+		else
+			return "ERROR"
+		end
+		
+		if target_id.empty? ==true && target_screen_name.empty? == false
+			target_ = "target_screen_name"
+			target = target_screen_name
+		elsif target_id.empty? ==false && target_screen_name.empty? == true
+			target_ = "target_id"
+			target = target_id
+		else
+			return "ERROR"
+		end
+		
+		return JSON.parse((@access_token.get("/1.1/friendships/show.json",
+						"#{source_}" => source,
+						"#{target_}" => target)).body)
 	end
 end#End of Class TwitRuby
