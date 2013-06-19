@@ -5,7 +5,7 @@
 # Copyright (C) alphaKAI @alpha_kai_NET 2013 http://alpha-kai-net.info #
 # GPLv3 LICENSE                                                        #
 #                                                                      #
-# Version:0.0.1_alpha FIX03                                                  #
+# Version:0.0.1_alpha FIX03                                            #
 # This is one of the Twitter Library                                   #
 # inspired by https://gist.github.com/pnlybubbles/5476370              #
 # This is development version.                                         #
@@ -38,7 +38,7 @@ class TwitRuby
 		@consumer = OAuth::Consumer.new(
 		consumer_key,
 		consumer_secret,
-		:site => 'http://api.twitter.com/'
+		:site => "http://api.twitter.com/"
 		)
 		
 		if access_token == nil || access_token == "" || access_token_secret == nil || access_token_secret == ""
@@ -63,10 +63,10 @@ class TwitRuby
 		begin
 			request_token = @consumer.get_request_token
 
-			# require 'Win32API'
+			# require "Win32API"
 
-			# shellexecute = Win32API.new('shell32.dll','ShellExecuteA',%w(p p p p p i),'i')
-			# shellexecute.call(0, 'open', "#{request_token.authorize_url}", 0, 0, 1)
+			# shellexecute = Win32API.new("shell32.dll","ShellExecuteA",%w(p p p p p i),"i")
+			# shellexecute.call(0, "open", "#{request_token.authorize_url}", 0, 0, 1)
 			
 			puts("Access here: #{request_token.authorize_url}\nand...")
 			print("Please input pin:=>")
@@ -237,10 +237,7 @@ class TwitRuby
 		#for https
 		https = Net::HTTP.new("twitter.com",443)
 		https.use_ssl = true
-		#SSL証明書のパス 自分で用意して下さいﾏｼ
-		https.ca_file = "./twitter.com.pem"
-		https.verify_mode = OpenSSL::SSL::VERIFY_PEER
-		https.verify_depth = 5
+		https.verify_mode = OpenSSL::SSL::VERIFY_NONE
 		
 		#get and parse
 		get_torf = JSON.parse(https.get("/users/username_available",
@@ -286,5 +283,65 @@ class TwitRuby
 		return JSON.parse((@access_token.get("/1.1/friendships/show.json",
 						"#{source_}" => source,
 						"#{target_}" => target)).body)
+	end
+	
+	##########################################################################
+	#Streaming APIs
+	#Usage:Call from block TwitRuby.userstream do |str|; p str; end
+	
+	def user_stream(&block)
+		uri = URI.parse("https://userstream.twitter.com/1.1/user.json")
+		https = Net::HTTP.new(uri.host, uri.port)
+		https.use_ssl = true
+		https.verify_mode = OpenSSL::SSL::VERIFY_NONE
+		
+		https.start do |https|
+			request = Net::HTTP::Get.new(uri.request_uri)
+			request.oauth!(https, @consumer, @access_token)
+			buf = ""
+			https.request(request) do |response|
+				response.read_body do |chunk|
+					buf << chunk
+					while(line = buf[/.*(\r\n)+/m])
+						begin
+							buf.sub!(line,"")
+							line.strip!
+							status = JSON.parse(line)
+						rescue
+							break
+						end
+						yield status
+					end
+				end
+			end
+		end
+	end
+	
+	def public_sample(&block)
+		uri = URI.parse("https://stream.twitter.com/1.1/statuses/sample.json")
+		https = Net::HTTP.new(uri.host, uri.port)
+		https.use_ssl = true
+		https.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+		https.start do |https|
+			request = Net::HTTP::Get.new(uri.request_uri)
+			request.oauth!(https, @consumer, @access_token)
+			buf = ""
+			https.request(request) do |response|
+				response.read_body do |chunk|
+					buf << chunk
+					while(line = buf[/.*(\r\n)+/m])
+						begin
+							buf.sub!(line,"")
+							line.strip!
+							status = JSON.parse(line)
+						rescue
+							break
+						end
+						yield status
+					end
+				end
+			end
+		end
 	end
 end#End of Class TwitRuby
