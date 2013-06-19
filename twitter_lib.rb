@@ -5,7 +5,7 @@
 # Copyright (C) alphaKAI @alpha_kai_NET 2013 http://alpha-kai-net.info #
 # GPLv3 LICENSE                                                        #
 #                                                                      #
-# Version:0.0.1_alpha FIX03                                            #
+# Version:0.0.1_alpha FIX04                                            #
 # This is one of the Twitter Library                                   #
 # inspired by https://gist.github.com/pnlybubbles/5476370              #
 # This is development version.                                         #
@@ -63,14 +63,14 @@ class TwitRuby
 		begin
 			request_token = @consumer.get_request_token
 
-			# require "Win32API"
+			require "Win32API"
 
-			# shellexecute = Win32API.new("shell32.dll","ShellExecuteA",%w(p p p p p i),"i")
-			# shellexecute.call(0, "open", "#{request_token.authorize_url}", 0, 0, 1)
+			shellexecute = Win32API.new("shell32.dll","ShellExecuteA",%w(p p p p p i),"i")
+			shellexecute.call(0, "open", "#{request_token.authorize_url}", 0, 0, 1)
 			
 			puts("Access here: #{request_token.authorize_url}\nand...")
 			print("Please input pin:=>")
-			pin = STDIN.gets.delete("\n")
+			pin = STDIN.gets.chomp
 			puts ""#改行
 
 			access_token = request_token.get_access_token(
@@ -88,6 +88,7 @@ class TwitRuby
 
 	##########################################################################
 	
+	#POST statuses/update
 	def update(str, id="")
 		if (id.empty?) then
 			@access_token.post("/1.1/statuses/update.json",
@@ -99,28 +100,49 @@ class TwitRuby
 		end
 	end
 	
+	#POST favorites/create
 	def favorite(id)
 		@access_token.post("/1.1/favorites/create.json",
 		"id" => id.to_s)
 	end
- 
+
+	#POST favorites/destroy
 	def unfavorite(id)
 		@access_token.post("/1.1/favorites/destroy.json",
 		"id" => id.to_s)
 	end
  
+	#POST statuses/retweet
 	def retweet(id)
 		@access_token.post("/1.1/statuses/retweet/#{id}.json")
 	end
  
+	#POST statuses/destroy
 	def post_delete(id)
 		@access_token.post("/1.1/statuses/destroy/#{id}.json")
 	end
 	
+	#GET account/verify_credentials
 	def verify_credentials
 		return JSON.parse(@access_token.get("/1.1/account/verify_credentials.json").body)
 	end
 	
+	#POST friendships/create
+	def follow(screen_name="",user_id="")
+		@access_token.post("/1.1/friendships/create.json",
+		"screen_name" => screen_name,
+		"user_id" => user_id,
+		"follow" => true)
+	end
+	
+	#POST 1.1/friendships/destroy
+	def remove(screen_name="",user_id="")
+		@access_token.post("/1.1/friendships/destroy.json",
+		"screen_name" => screen_name,
+		"user_id" => user_id)
+	end
+	
+	#GET statuses/mentions_timeline
 	def mentions_timeline(count="",since_id="",max_id="",trim_user="",contributor_details="",include_entities="")
 		return JSON.parse((@access_token.get("/1.1/statuses/mentions_timeline.json",
 						"count" => count,
@@ -260,10 +282,10 @@ class TwitRuby
 	def friendships?(source_id="",source_screen_name="",target_id="",target_screen_name="")
 		
 		#Convert and Build
-		if source_id.empty? ==true && source_screen_name.empty? == false
+		if source_id.empty? == true && source_screen_name.empty? == false
 			source_ = "source_screen_name"
 			source=source_screen_name
-		elsif source_id.empty? ==false && source_screen_name.empty? == true
+		elsif source_id.empty? == false && source_screen_name.empty? == true
 			source_ = "source_id"
 			source = source_id
 		else
@@ -287,8 +309,9 @@ class TwitRuby
 	
 	##########################################################################
 	#Streaming APIs
-	#Usage:Call from block TwitRuby.userstream do |str|; p str; end
+	#Usage:Call from block
 	
+	#UserStream
 	def user_stream(&block)
 		uri = URI.parse("https://userstream.twitter.com/1.1/user.json")
 		https = Net::HTTP.new(uri.host, uri.port)
@@ -317,6 +340,7 @@ class TwitRuby
 		end
 	end
 	
+	#Public Sample
 	def public_sample(&block)
 		uri = URI.parse("https://stream.twitter.com/1.1/statuses/sample.json")
 		https = Net::HTTP.new(uri.host, uri.port)
