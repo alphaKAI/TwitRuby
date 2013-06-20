@@ -63,10 +63,10 @@ class TwitRuby
 		begin
 			request_token = @consumer.get_request_token
 
-			require "Win32API"
+			# require "Win32API"
 
-			shellexecute = Win32API.new("shell32.dll","ShellExecuteA",%w(p p p p p i),"i")
-			shellexecute.call(0, "open", "#{request_token.authorize_url}", 0, 0, 1)
+			# shellexecute = Win32API.new("shell32.dll","ShellExecuteA",%w(p p p p p i),"i")
+			# shellexecute.call(0, "open", "#{request_token.authorize_url}", 0, 0, 1)
 			
 			puts("Access here: #{request_token.authorize_url}\nand...")
 			print("Please input pin:=>")
@@ -94,9 +94,9 @@ class TwitRuby
 			@access_token.post("/1.1/statuses/update.json",
 			"status" => str)
 		else
-			@access_token.post("/1.1/statuses/update.json",
+			p @access_token.post("/1.1/statuses/update.json",
 			"status" => str,
-			"in_reply_status_id" => id.to_s)
+			"in_reply_to_status_id" => id)
 		end
 	end
 	
@@ -135,7 +135,7 @@ class TwitRuby
 		"follow" => true)
 	end
 	
-	#POST 1.1/friendships/destroy
+	#POST friendships/destroy
 	def remove(screen_name="",user_id="")
 		@access_token.post("/1.1/friendships/destroy.json",
 		"screen_name" => screen_name,
@@ -278,7 +278,6 @@ class TwitRuby
 	end
 	
 	#GET friendships/show
-	#上手く動かない
 	def friendships?(source_id="",source_screen_name="",target_id="",target_screen_name="")
 		
 		#Convert and Build
@@ -302,9 +301,7 @@ class TwitRuby
 			return "ERROR"
 		end
 		
-		return JSON.parse((@access_token.get("/1.1/friendships/show.json",
-						"#{source_}" => source,
-						"#{target_}" => target)).body)
+		return JSON.parse(@access_token.get("/1.1/friendships/show.json?#{source_}=#{source}&#{target_}=#{target}").body)
 	end
 	
 	##########################################################################
