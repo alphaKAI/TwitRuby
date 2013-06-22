@@ -5,7 +5,7 @@
 # Copyright (C) alphaKAI @alpha_kai_NET 2013 http://alpha-kai-net.info #
 # GPLv3 LICENSE                                                        #
 #                                                                      #
-# Version:0.0.1_alpha FIX04                                            #
+# Version:0.0.1_alpha FIX05                                            #
 # This is one of the Twitter Library                                   #
 # inspired by https://gist.github.com/pnlybubbles/5476370              #
 # This is development version.                                         #
@@ -22,8 +22,6 @@ require "date"
 
 class TwitRuby
 	def initalize_connection(consumer_keys)
-		ak_exist=true
-		#デフォ状態での引数にアクセストークン系があるかないか 初期になかった場合は処理中にfalseに変更
 		if consumer_keys.size !=4 then
 			puts "error"
 			puts "wrong number of arguments"
@@ -46,11 +44,11 @@ class TwitRuby
 			oauth_array = oauth_init
 			access_token = oauth_array[0]
 			access_token_secret = oauth_array[1]
-			ak_exist = false
+
 		end
-		
-		# puts access_token
-		# puts access_token_secret
+	
+		 #puts access_token
+		 #puts access_token_secret
 		
 		@access_token = OAuth::AccessToken.new(
 		@consumer,
@@ -74,14 +72,14 @@ class TwitRuby
 			puts ""#改行
 
 			access_token = request_token.get_access_token(
-			"oauth_token" => request_token.token,
-			"oauth_verifier" => pin
+			:oauth_token => request_token.token,
+			:oauth_verifier => pin
 			)
 
 			access_tokens = []
 			access_tokens  << access_token.token.to_s
 			access_tokens  << access_token.secret.to_s
-			
+			#p access_tokens
 			return access_tokens
 		end#end of begin
 	end#end of function oauth_init
