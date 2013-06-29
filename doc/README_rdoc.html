@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>README - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+<div id="table-of-contents">
+  <nav class="section">
+    <h3 class="section-header">Table of Contents</h3>
+    <ul>
+      <li><a href="#label-TwitRuby">TwitRuby</a>
+      <li><a href="#label-Usage">Usage</a>
+      <li><a href="#label-APIs">APIs</a>
+      <li><a href="#label-RESET+API%28POST%2FGET%29">RESET API(POST/GET)</a>
+      <li><a href="#label-Streaming+API">Streaming API</a>
+      <li><a href="#label-Copyright">Copyright</a>
+    </ul>
+  </nav>
+</div>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<h1 id="label-TwitRuby">TwitRuby<span><a href="#label-TwitRuby">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
+
+<p>This is one of the Twitter Library Copyright (C) alphaKAI @alpha_kai_NET
+2013 <a href="http://alpha-kai-net.info">alpha-kai-net.info</a> GPLv3
+LICENSE Current Version:0.0.1_alpha FIX05 This is one of the Twitter
+Library This is development version. So very unstable. You must accept it
+when you use this.</p>
+
+<h2 id="label-Usage">Usage<span><a href="#label-Usage">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>Please require this liblary.</p>
+
+<pre>#code
+#define
+consumer_key = &quot;&quot;
+consumer_secret = &quot;&quot;
+access_token = &quot;&quot;
+access_token_secret = &quot;&quot;
+#Authentication
+cunsmer_array=[]
+cunsmer_array &lt;&lt; consumer_key &lt;&lt; consumer_secret &lt;&lt; access_token &lt;&lt; access_token_secret
+twi=TwitRuby.new
+twi.initalize_connection(cunsmer_array)
+#example
+twi.update(&quot;sample&quot;)#example, update tweet.</pre>
+
+<h2 id="label-APIs">APIs<span><a href="#label-APIs">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<h3 id="label-RESET+API%28POST%2FGET%29">RESET API(POST/GET)<span><a href="#label-RESET+API%28POST%2FGET%29">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p>If you call “GET” function you get json parsed data.So, you get array.</p>
+<ul><li>
+<p>POST statuses/update</p>
+</li><li>
+<p>POST favorites/create</p>
+</li><li>
+<p>POST favotites/destroy</p>
+</li><li>
+<p>POST statuses/retweet</p>
+</li><li>
+<p>POST statuses/destroy</p>
+</li><li>
+<p>GET account/verify_credentials</p>
+</li><li>
+<p>POST friendships/create</p>
+</li><li>
+<p>POST friendships/destroy</p>
+</li><li>
+<p>GET statuses/mentions_timeline</p>
+</li><li>
+<p>GET statuses/home_timeline</p>
+</li><li>
+<p>GET statuses/user_timeline</p>
+</li><li>
+<p>GET statuses/retweets_of_me</p>
+</li><li>
+<p>POST direct_messages/new</p>
+</li><li>
+<p>GET direct_messages/sent</p>
+</li><li>
+<p>GET direct_messages</p>
+</li><li>
+<p>POST direct_messages/destroy</p>
+</li><li>
+<p>GET followers/ids</p>
+</li><li>
+<p>GET username_available?(may be unofficial api)</p>
+
+<pre>Check exist user of argument id.
+So,reverse  of return real status (true false), because this for check exist.
+Sorry... I can&#39;t write english well.</pre>
+</li><li>
+<p>GET account/rate_limit_status</p>
+</li><li>
+<p>GET friendships/show</p>
+</li></ul>
+
+<h3 id="label-Streaming+API">Streaming API<span><a href="#label-Streaming+API">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+<ul><li>
+<p>UserStream</p>
+</li><li>
+<p>public Sample</p>
+</li></ul>
+
+<h2 id="label-Copyright">Copyright<span><a href="#label-Copyright">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>Copyright © alphaKAI @alpha_ka_NET 2012-2013 <a
+href="http://alpha-kai-net.info">alpha-kai-net.info</a> GPLv3 LICENSE See
+LICENSE.txt</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
