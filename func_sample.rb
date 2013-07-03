@@ -5,7 +5,7 @@
 ########################################################################
 
 #ライブラリの使い方的な何か
-require_relative "./twitter_lib.rb"
+require_relative "./twitruby.rb"
 
 consumer_key = ""
 consumer_secret = ""
