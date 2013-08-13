@@ -13,6 +13,15 @@ require "twitruby/version"
 # So very unstable.                                                    #
 # You must accept it when you use this.                                #
 ########################################################################
+
+require "net/https"
+require "oauth"
+require "cgi"
+require "json"
+require "openssl"
+require "open-uri"
+require "date"
+
 class TwitRuby
 	def initalize_connection(consumer_keys)
 		ak_exist=true
