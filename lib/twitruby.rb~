@@ -367,4 +367,5 @@ class TwitRuby
 			end
 		end
 	end
-end#End of Class TwitRuby
+	end#End of Class TwitRuby
+end#nd of Module TwitRuby
