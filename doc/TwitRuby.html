@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class TwitRuby - RDoc Documentation</title>
+<title>class TwitRuby - TwitRuby document</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -85,6 +85,8 @@
     
     <li ><a href="#method-i-friendships-3F">#friendships?</a>
     
+    <li ><a href="#method-i-gen_parms">#gen_parms</a>
+    
     <li ><a href="#method-i-get_rate_limit">#get_rate_limit</a>
     
     <li ><a href="#method-i-get_rom">#get_rom</a>
@@ -146,6 +148,22 @@
 
   <div id="description" class="description">
     
+<h2 id="label-TwitRuby%3D%3D+++++++++++++++++++++++++++++++++++++++++++++++++++++++++%23">TwitRuby==                                                         #<span><a href="#label-TwitRuby%3D%3D+++++++++++++++++++++++++++++++++++++++++++++++++++++++++%23">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>Copyright (C) alphaKAI @alpha_kai_NET 2013 <a
+href="http://alpha-kai-net.info">alpha-kai-net.info</a> # GPLv3 LICENSE    
+#</p>
+
+<pre>#</pre>
+
+<p>Version:0.0.1_alpha FIX05                                            # This
+is one of the Twitter Library                                   # inspired
+by <a
+href="https://gist.github.com/pnlybubbles/5476370">gist.github.com/pnlybubbles/5476370</a>
+# This is development version.                                         # So
+very unstable.                                                    # You
+must accept it when you use this.                                #</p>
+
   </div><!-- description -->
 
   
@@ -185,7 +203,7 @@
 
           
           <div class="method-source-code" id="dm_msgs-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 224</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 227</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dm_msgs</span>(<span class="ruby-identifier">since_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">max_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">count</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">include_entities</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">skip_status</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">&quot;/1.1/direct_messages.json&quot;</span>,
                                         <span class="ruby-string">&quot;since_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">since_id</span>,
@@ -224,7 +242,7 @@
 
           
           <div class="method-source-code" id="dm_send-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 198</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 201</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dm_send</span>(<span class="ruby-identifier">user_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">screen_name</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">text</span>)
         <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_id</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword">then</span>
                 <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;Error. user_id =&gt; empty&quot;</span>
@@ -263,7 +281,7 @@
 
           
           <div class="method-source-code" id="favorite-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 103</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 106</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">favorite</span>(<span class="ruby-identifier">id</span>)
         <span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">post</span>(<span class="ruby-string">&quot;/1.1/favorites/create.json&quot;</span>,
         <span class="ruby-string">&quot;id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span>)
@@ -297,7 +315,7 @@
 
           
           <div class="method-source-code" id="follow-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 130</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 133</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">follow</span>(<span class="ruby-identifier">screen_name</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">user_id</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">post</span>(<span class="ruby-string">&quot;/1.1/friendships/create.json&quot;</span>,
         <span class="ruby-string">&quot;screen_name&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">screen_name</span>,
@@ -333,7 +351,7 @@
 
           
           <div class="method-source-code" id="follower_ids-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 244</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 247</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">follower_ids</span>(<span class="ruby-identifier">user_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">screen_name</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">cursor</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">stringify_ids</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">count</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">&quot;/1.1/followers/ids.json&quot;</span>,
                                         <span class="ruby-string">&quot;user_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_id</span>,
@@ -372,7 +390,7 @@
 
           
           <div class="method-source-code" id="friendships-3F-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 280</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 283</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">friendships?</span>(<span class="ruby-identifier">source_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">source_screen_name</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">target_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">target_screen_name</span>=<span class="ruby-string">&quot;&quot;</span>)
         
         <span class="ruby-comment">#Convert and Build</span>
@@ -408,6 +426,44 @@
       </div><!-- friendships-3F-method -->
 
     
+      <div id="method-i-gen_parms" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">gen_parms</span><span
+            class="method-args">(api,parms)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Generate api parameters function</p>
+          
+          
+
+          
+          <div class="method-source-code" id="gen_parms-source">
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 83</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">gen_parms</span>(<span class="ruby-identifier">api</span>,<span class="ruby-identifier">parms</span>)
+    <span class="ruby-identifier">hash_str</span>=<span class="ruby-string">&quot;?&quot;</span>
+<span class="ruby-identifier">parms</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">hash_str</span><span class="ruby-operator">+=</span><span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-string">&quot;=&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-string">&quot;&amp;&quot;</span>
+    }
+      <span class="ruby-identifier">hash_str</span>[<span class="ruby-identifier">hash_str</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]=<span class="ruby-string">&quot;&quot;</span>
+          <span class="ruby-keyword">return</span> <span class="ruby-identifier">hash_str</span>.<span class="ruby-identifier">chomp</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div><!-- gen_parms-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- gen_parms-method -->
+
+    
       <div id="method-i-get_rate_limit" class="method-detail ">
         
         <div class="method-heading">
@@ -427,7 +483,7 @@
 
           
           <div class="method-source-code" id="get_rate_limit-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 275</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 278</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_rate_limit</span>
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>((<span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">&quot;/1.1/application/rate_limit_status.json&quot;</span>)).<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -460,7 +516,7 @@
 
           
           <div class="method-source-code" id="get_rom-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 184</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 187</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_rom</span>(<span class="ruby-identifier">count</span>,<span class="ruby-identifier">since_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">max_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">trim_user</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">include_entities</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">include_user_entities</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">&quot;/1.1/statuses/retweets_of_me.json&quot;</span>,
                                         <span class="ruby-string">&quot;count&quot;</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">count</span>,
@@ -500,17 +556,17 @@
 
           
           <div class="method-source-code" id="get_sent_dm-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 209</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 212</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_sent_dm</span>(<span class="ruby-identifier">since_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">max_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">count</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">page</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">include_entities</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-keyword">if</span> <span class="ruby-identifier">since_id</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">max_id</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">count</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">page</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">include_entities</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword">then</span>
                 <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;Error. same parms is empty&quot;</span>
         <span class="ruby-keyword">end</span>
         
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">&quot;/1.1/direct_messages/sent.json&quot;</span>,
-                                        <span class="ruby-string">&quot;since_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">since_id</span>,
-                                        <span class="ruby-string">&quot;max_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">max_id</span>,
-                                        <span class="ruby-string">&quot;count&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">count</span>,
-                                        <span class="ruby-string">&quot;page&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">page</span>,
+                                <span class="ruby-string">&quot;since_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">since_id</span>,
+                                <span class="ruby-string">&quot;max_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">max_id</span>,
+                                <span class="ruby-string">&quot;count&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">count</span>,
+                                <span class="ruby-string">&quot;page&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">page</span>,
                                         <span class="ruby-string">&quot;include_entities&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">include_entities</span>,
                                         ).<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -543,7 +599,7 @@
 
           
           <div class="method-source-code" id="home_timeline-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 157</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 160</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">home_timeline</span>(<span class="ruby-identifier">count</span>,<span class="ruby-identifier">since_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">max_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">trim_user</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">include_entities</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">include_user_entities</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">&quot;/1.1/statuses/home_timeline.json&quot;</span>,
                                         <span class="ruby-string">&quot;count&quot;</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">count</span>,
@@ -583,7 +639,7 @@
 
           
           <div class="method-source-code" id="initalize_connection-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 23</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initalize_connection</span>(<span class="ruby-identifier">consumer_keys</span>)
         <span class="ruby-identifier">ak_exist</span>=<span class="ruby-keyword">true</span>
         <span class="ruby-comment">#デフォ状態での引数にアクセストークン系があるかないか 初期になかった場合は処理中にfalseに変更</span>
@@ -612,8 +668,8 @@
                 <span class="ruby-identifier">ak_exist</span> = <span class="ruby-keyword">false</span>
         <span class="ruby-keyword">end</span>
         
-        <span class="ruby-comment"># puts access_token</span>
-        <span class="ruby-comment"># puts access_token_secret</span>
+        <span class="ruby-comment">#puts access_token</span>
+        <span class="ruby-comment">#puts access_token_secret</span>
         
         <span class="ruby-ivar">@access_token</span> = <span class="ruby-constant">OAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">AccessToken</span>.<span class="ruby-identifier">new</span>(
         <span class="ruby-ivar">@consumer</span>,
@@ -650,7 +706,7 @@
 
           
           <div class="method-source-code" id="mentions_timeline-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 145</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 148</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">mentions_timeline</span>(<span class="ruby-identifier">count</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">since_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">max_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">trim_user</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">contributor_details</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">include_entities</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>((<span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">&quot;/1.1/statuses/mentions_timeline.json&quot;</span>,
                                         <span class="ruby-string">&quot;count&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">count</span>,
@@ -690,7 +746,7 @@
 
           
           <div class="method-source-code" id="oauth_init-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 61</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">oauth_init</span>
         <span class="ruby-keyword">begin</span>
                 <span class="ruby-identifier">request_token</span> = <span class="ruby-ivar">@consumer</span>.<span class="ruby-identifier">get_request_token</span>
@@ -706,8 +762,8 @@
                 <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;&quot;</span><span class="ruby-comment">#改行</span>
 
                 <span class="ruby-identifier">access_token</span> = <span class="ruby-identifier">request_token</span>.<span class="ruby-identifier">get_access_token</span>(
-                <span class="ruby-string">&quot;oauth_token&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request_token</span>.<span class="ruby-identifier">token</span>,
-                <span class="ruby-string">&quot;oauth_verifier&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">pin</span>
+                <span class="ruby-value">:oauth_token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request_token</span>.<span class="ruby-identifier">token</span>,
+                <span class="ruby-value">:oauth_verifier</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">pin</span>
                 )
 
                 <span class="ruby-identifier">access_tokens</span> = []
@@ -746,7 +802,7 @@
 
           
           <div class="method-source-code" id="post_delete-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 120</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 123</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">post_delete</span>(<span class="ruby-identifier">id</span>)
         <span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">post</span>(<span class="ruby-node">&quot;/1.1/statuses/destroy/#{id}.json&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -779,7 +835,7 @@
 
           
           <div class="method-source-code" id="post_dm_destory-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 235</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 238</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">post_dm_destory</span>(<span class="ruby-identifier">id</span>,<span class="ruby-identifier">include_entities</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">post</span>(<span class="ruby-string">&quot;/1.1/direct_messages/destroy.json&quot;</span>,
         <span class="ruby-string">&quot;id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span>,
@@ -814,15 +870,14 @@
 
           
           <div class="method-source-code" id="public_sample-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 340</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 343</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">public_sample</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
         <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-string">&quot;https://stream.twitter.com/1.1/statuses/sample.json&quot;</span>)
         <span class="ruby-identifier">https</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
         <span class="ruby-identifier">https</span>.<span class="ruby-identifier">use_ssl</span> = <span class="ruby-keyword">true</span>
         <span class="ruby-identifier">https</span>.<span class="ruby-identifier">verify_mode</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">SSL</span><span class="ruby-operator">::</span><span class="ruby-constant">VERIFY_NONE</span>
-
-        <span class="ruby-identifier">https</span>.<span class="ruby-identifier">start</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">https</span><span class="ruby-operator">|</span>
-                <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Get</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">request_uri</span>)
+                        <span class="ruby-identifier">https</span>.<span class="ruby-identifier">start</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">https</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Get</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">request_uri</span><span class="ruby-operator">+</span><span class="ruby-string">&quot;track=twitter&quot;</span>)
                 <span class="ruby-identifier">request</span>.<span class="ruby-identifier">oauth!</span>(<span class="ruby-identifier">https</span>, <span class="ruby-ivar">@consumer</span>, <span class="ruby-ivar">@access_token</span>)
                 <span class="ruby-identifier">buf</span> = <span class="ruby-string">&quot;&quot;</span>
                 <span class="ruby-identifier">https</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">request</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">response</span><span class="ruby-operator">|</span>
@@ -871,7 +926,7 @@
 
           
           <div class="method-source-code" id="remove-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 138</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 141</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">remove</span>(<span class="ruby-identifier">screen_name</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">user_id</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">post</span>(<span class="ruby-string">&quot;/1.1/friendships/destroy.json&quot;</span>,
         <span class="ruby-string">&quot;screen_name&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">screen_name</span>,
@@ -906,7 +961,7 @@
 
           
           <div class="method-source-code" id="retweet-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 115</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 118</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">retweet</span>(<span class="ruby-identifier">id</span>)
         <span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">post</span>(<span class="ruby-node">&quot;/1.1/statuses/retweet/#{id}.json&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -939,7 +994,7 @@
 
           
           <div class="method-source-code" id="unfavorite-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 109</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 112</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">unfavorite</span>(<span class="ruby-identifier">id</span>)
         <span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">post</span>(<span class="ruby-string">&quot;/1.1/favorites/destroy.json&quot;</span>,
         <span class="ruby-string">&quot;id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span>)
@@ -973,7 +1028,7 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 91</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>(<span class="ruby-identifier">str</span>, <span class="ruby-identifier">id</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-keyword">if</span> (<span class="ruby-identifier">id</span>.<span class="ruby-identifier">empty?</span>) <span class="ruby-keyword">then</span>
                 <span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">post</span>(<span class="ruby-string">&quot;/1.1/statuses/update.json&quot;</span>,
@@ -1013,7 +1068,7 @@
 
           
           <div class="method-source-code" id="user_ava-3F-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 256</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 259</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">user_ava?</span>(<span class="ruby-identifier">user_name</span>)
 
         <span class="ruby-comment">#for https</span>
@@ -1060,7 +1115,7 @@
 
           
           <div class="method-source-code" id="user_stream-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 311</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 314</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">user_stream</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
         <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-string">&quot;https://userstream.twitter.com/1.1/user.json&quot;</span>)
         <span class="ruby-identifier">https</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
@@ -1117,7 +1172,7 @@
 
           
           <div class="method-source-code" id="user_timeline-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 169</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 172</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">user_timeline</span>(<span class="ruby-identifier">user_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">screen_name</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">since_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">count</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">max_id</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">trim_user</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">exclude_replies</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">contributor_details</span>=<span class="ruby-string">&quot;&quot;</span>,<span class="ruby-identifier">include_rts</span>=<span class="ruby-string">&quot;&quot;</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">&quot;/1.1/statuses/user_timeline.json&quot;</span>,
                                         <span class="ruby-string">&quot;user_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_id</span>,
@@ -1160,7 +1215,7 @@
 
           
           <div class="method-source-code" id="verify_credentials-source">
-            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 125</span>
+            <pre><span class="ruby-comment"># File lib/twitruby.rb, line 128</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">verify_credentials</span>
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@access_token</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">&quot;/1.1/account/verify_credentials.json&quot;</span>).<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">end</span></pre>
